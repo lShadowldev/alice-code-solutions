@@ -141,24 +141,61 @@
           <a class="btn btn-outline" href="#contato">Ver mais projetos →</a>
         </div>
 
-        <article class="project-card reveal">
-          <div class="project-visual">
-            <div class="project-screen">
-              <span>Mercadinho da 44</span>
-              <small>catálogo • pedidos • estoque • relatórios</small>
+        <article class="project-card project-card-featured reveal">
+          <button class="project-preview-trigger" type="button" data-open-mercadinho aria-label="Ver prévia do sistema Mercadinho da 44">
+            <div class="project-preview-slider" aria-hidden="true">
+              <img class="project-preview-slide active" src="assets/mercadinho-home.png" alt="" />
+              <img class="project-preview-slide" src="assets/mercadinho-carrinho.png" alt="" />
+              <img class="project-preview-slide" src="assets/mercadinho-admin-login.png" alt="" />
+              <div class="project-preview-shade"></div>
+              <div class="project-preview-status"><i></i> SISTEMA PRONTO E EM PRODUÇÃO</div>
+              <div class="project-preview-action">Ver prévia do sistema <span>↗</span></div>
+              <div class="project-preview-dots"><b class="active"></b><b></b><b></b></div>
             </div>
-          </div>
+          </button>
           <div class="project-info">
             <span class="badge">Online • Projeto entregue</span>
             <h3>Mercadinho da 44</h3>
-            <p>Sistema web em produção com catálogo, pedidos via WhatsApp, controle automático de estoque, pagamentos e relatórios para a gestão do negócio.</p>
+            <p>Sistema web completo, pronto e em produção, com catálogo, carrinho, pedidos via WhatsApp, controle automático de estoque, pagamentos, relatórios e painel administrativo.</p>
             <div class="tags">
               <span>Sistema Web</span>
-              <span>Em produção</span>
+              <span>Pronto e em produção</span>
               <span>Comércio Local</span>
             </div>
+            <button class="project-demo-btn" type="button" data-open-mercadinho>Ver prévia do sistema →</button>
           </div>
         </article>
+
+        <div class="portfolio-modal" id="mercadinhoPreview" aria-hidden="true">
+          <div class="portfolio-modal-backdrop" data-close-mercadinho></div>
+          <div class="portfolio-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="mercadinhoPreviewTitle">
+            <button class="portfolio-modal-close" type="button" data-close-mercadinho aria-label="Fechar prévia">×</button>
+            <div class="portfolio-modal-head">
+              <div>
+                <span class="portfolio-live"><i></i> SISTEMA PRONTO • EM PRODUÇÃO</span>
+                <h3 id="mercadinhoPreviewTitle">Mercadinho da 44</h3>
+                <p>Uma visão do sistema real desenvolvido pela Alice Code Solutions — sem acesso ao ambiente operacional do cliente.</p>
+              </div>
+              <div class="portfolio-modal-counter"><span id="previewCurrent">01</span> / 03</div>
+            </div>
+            <div class="portfolio-showcase">
+              <button class="portfolio-arrow prev" type="button" id="previewPrev" aria-label="Tela anterior">←</button>
+              <div class="portfolio-frame"><img id="previewImage" src="assets/mercadinho-home.png" alt="Tela inicial do Mercadinho da 44" /></div>
+              <button class="portfolio-arrow next" type="button" id="previewNext" aria-label="Próxima tela">→</button>
+            </div>
+            <div class="portfolio-caption">
+              <div>
+                <span id="previewEyebrow">EXPERIÊNCIA DO CLIENTE</span>
+                <h4 id="previewTitle">Catálogo e experiência de compra</h4>
+                <p id="previewText">Página pública responsiva com funcionamento, busca, categorias e catálogo de produtos para os moradores do condomínio.</p>
+              </div>
+              <div class="portfolio-features">
+                <span>Catálogo</span><span>Carrinho</span><span>WhatsApp</span><span>Estoque</span><span>Pagamentos</span><span>Relatórios</span><span>Painel Admin</span>
+              </div>
+            </div>
+            <div class="portfolio-privacy">A prévia mostra apenas telas demonstrativas. O sistema real e os dados administrativos do cliente permanecem privados.</div>
+          </div>
+        </div>
       </div>
     </section>
 
