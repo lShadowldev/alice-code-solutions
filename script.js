@@ -51,25 +51,92 @@ const revealObserver = new IntersectionObserver(
 
 reveals.forEach(element => revealObserver.observe(element));
 
-// ===== PRÉVIA DO MERCADINHO DA 44 =====
+// ===== MERCADINHO DA 44 — SLIDESHOW + PRÉVIA =====
 (() => {
-  const slides=[...document.querySelectorAll('.project-preview-slide')],dots=[...document.querySelectorAll('.project-preview-dots b')];
-  let miniIndex=0;
-  if(slides.length)setInterval(()=>{slides[miniIndex].classList.remove('active');dots[miniIndex]?.classList.remove('active');miniIndex=(miniIndex+1)%slides.length;slides[miniIndex].classList.add('active');dots[miniIndex]?.classList.add('active')},3800);
-  const modal=document.getElementById('mercadinhoPreview'); if(!modal)return;
-  const screens=[
-   {image:'assets/mercadinho-home.png',alt:'Tela inicial do Mercadinho da 44',eyebrow:'EXPERIÊNCIA DO CLIENTE',title:'Catálogo e experiência de compra',text:'Página pública responsiva com funcionamento, busca, categorias e catálogo de produtos para os moradores do condomínio.'},
-   {image:'assets/mercadinho-carrinho.png',alt:'Carrinho do Mercadinho da 44',eyebrow:'FLUXO DE PEDIDO',title:'Carrinho e finalização do pedido',text:'O cliente seleciona os itens, acompanha o total e segue para o fluxo de pedido integrado ao WhatsApp e às formas de pagamento.'},
-   {image:'assets/mercadinho-admin-login.png',alt:'Login do painel administrativo do Mercadinho da 44',eyebrow:'GESTÃO PROTEGIDA',title:'Painel administrativo',text:'Acesso protegido para a gestão do sistema. A demonstração exibe somente a tela de login e preserva completamente os dados operacionais do cliente.'}
+  const modal = document.getElementById('mercadinhoPreview');
+  if (!modal) return;
+
+  const previewImage = document.getElementById('mercadinhoPreviewImage');
+  const previewTitle = document.getElementById('mercadinhoPreviewTitle');
+  const previewText = document.getElementById('mercadinhoPreviewText');
+  const previewStep = document.getElementById('mercadinhoPreviewStep');
+  const prevBtn = document.getElementById('mercadinhoPrev');
+  const nextBtn = document.getElementById('mercadinhoNext');
+
+  const slides = [
+    {
+      image: 'assets/mercadinho-home.png',
+      alt: 'Tela inicial do Mercadinho da 44',
+      title: 'Catálogo e experiência de compra',
+      text: 'Tela pública responsiva com funcionamento, busca, categorias e catálogo de produtos.'
+    },
+    {
+      image: 'assets/mercadinho-carrinho.png',
+      alt: 'Carrinho do Mercadinho da 44',
+      title: 'Carrinho e fluxo de pedido',
+      text: 'O cliente adiciona produtos, acompanha o total e segue para o fluxo de finalização do pedido.'
+    },
+    {
+      image: 'assets/mercadinho-admin-login.png',
+      alt: 'Login do painel administrativo do Mercadinho da 44',
+      title: 'Painel administrativo protegido',
+      text: 'Área administrativa com acesso protegido. A prévia mostra somente a tela de login, sem expor dados internos.'
+    }
   ];
-  let current=0;
-  const img=document.getElementById('previewImage'),eyebrow=document.getElementById('previewEyebrow'),title=document.getElementById('previewTitle'),text=document.getElementById('previewText'),counter=document.getElementById('previewCurrent');
-  const render=()=>{const s=screens[current];img.src=s.image;img.alt=s.alt;eyebrow.textContent=s.eyebrow;title.textContent=s.title;text.textContent=s.text;counter.textContent=String(current+1).padStart(2,'0')};
-  const open=()=>{modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.classList.add('modal-open');current=0;render()};
-  const close=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.classList.remove('modal-open')};
-  document.querySelectorAll('[data-open-mercadinho]').forEach(el=>el.addEventListener('click',open));
-  document.querySelectorAll('[data-close-mercadinho]').forEach(el=>el.addEventListener('click',close));
-  document.getElementById('previewPrev').addEventListener('click',()=>{current=(current-1+screens.length)%screens.length;render()});
-  document.getElementById('previewNext').addEventListener('click',()=>{current=(current+1)%screens.length;render()});
-  document.addEventListener('keydown',e=>{if(!modal.classList.contains('open'))return;if(e.key==='Escape')close();if(e.key==='ArrowRight'){current=(current+1)%screens.length;render()}if(e.key==='ArrowLeft'){current=(current-1+screens.length)%screens.length;render()}});
+
+  let current = 0;
+
+  function render() {
+    const item = slides[current];
+    previewImage.src = item.image;
+    previewImage.alt = item.alt;
+    previewTitle.textContent = item.title;
+    previewText.textContent = item.text;
+    previewStep.textContent = `${String(current + 1).padStart(2,'0')} / ${String(slides.length).padStart(2,'0')}`;
+  }
+
+  function openModal() {
+    current = 0;
+    render();
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.classList.add('modal-open');
+  }
+
+  function closeModal() {
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('modal-open');
+  }
+
+  document.querySelectorAll('[data-open-mercadinho]').forEach(btn => {
+    btn.addEventListener('click', openModal);
+  });
+
+  document.querySelectorAll('[data-close-mercadinho]').forEach(btn => {
+    btn.addEventListener('click', closeModal);
+  });
+
+  prevBtn.addEventListener('click', () => {
+    current = (current - 1 + slides.length) % slides.length;
+    render();
+  });
+
+  nextBtn.addEventListener('click', () => {
+    current = (current + 1) % slides.length;
+    render();
+  });
+
+  document.addEventListener('keydown', event => {
+    if (!modal.classList.contains('open')) return;
+    if (event.key === 'Escape') closeModal();
+    if (event.key === 'ArrowLeft') {
+      current = (current - 1 + slides.length) % slides.length;
+      render();
+    }
+    if (event.key === 'ArrowRight') {
+      current = (current + 1) % slides.length;
+      render();
+    }
+  });
 })();
